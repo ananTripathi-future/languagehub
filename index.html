@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LanguageHub - Next-Gen Voice & Text Translator</title>
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#090D1A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-gradient-glow"></div>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                    <h1>LanguageHub</h1>
+                    <p class="tagline">Next-Gen Voice & Text AI Translator</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="install-app-btn" class="header-action-btn hidden" title="Install App">
+                    <i class="fa-solid fa-download text-cyan"></i> <span>Install App</span>
+                </button>
+                <button id="theme-toggle-btn" class="icon-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="favorites-toggle-btn" class="header-action-btn">
+                    <i class="fa-solid fa-star text-gold"></i> <span>Starred</span>
+                </button>
+                <button id="history-toggle-btn" class="header-action-btn">
+                    <i class="fa-solid fa-history"></i> <span>History</span>
+                </button>
+                <button id="settings-toggle-btn" class="icon-btn" title="Settings">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="translator-grid">
+            <!-- Source Card -->
+            <div class="glass-card translator-card" id="source-card">
+                <div class="card-header">
+                    <span class="panel-label">Source Language</span>
+                    <div class="select-wrapper">
+                        <select id="source-language" aria-label="Source Language Selector">
+                            <option value="en-US">🇬🇧 English</option>
+                            <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+                            <option value="ta-IN">🇮🇳 Tamil (தமிழ்)</option>
+                            <option value="te-IN">🇮🇳 Telugu (తెలుగు)</option>
+                            <option value="kn-IN">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                            <option value="ml-IN">🇮🇳 Malayalam (മലയാളം)</option>
+                            <option value="bn-IN">🇮🇳 Bengali (বাংলা)</option>
+                            <option value="mr-IN">🇮🇳 Marathi (मराठी)</option>
+                            <option value="gu-IN">🇮🇳 Gujarati (ગુજરાતી)</option>
+                            <option value="pa-IN">🇮🇳 Punjabi (ਪੰਜਾਬੀ)</option>
+                            <option value="ur-IN">🇮🇳 Urdu (اردو)</option>
+                            <option value="es-ES">🇪🇸 Spanish (Español)</option>
+                            <option value="fr-FR">🇫🇷 French (Français)</option>
+                            <option value="de-DE">🇩🇪 German (Deutsch)</option>
+                            <option value="it-IT">🇮🇹 Italian (Italiano)</option>
+                            <option value="pt-PT">🇵🇹 Portuguese (Português)</option>
+                            <option value="ru-RU">🇷🇺 Russian (Русский)</option>
+                            <option value="zh-CN">🇨🇳 Chinese (Simplified)</option>
+                            <option value="ja-JP">🇯🇵 Japanese (日本語)</option>
+                            <option value="ko-KR">🇰🇷 Korean (한국어)</option>
+                            <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+                            <option value="tr-TR">🇹🇷 Turkish (Türkçe)</option>
+                            <option value="nl-NL">🇳🇱 Dutch (Nederlands)</option>
+                            <option value="vi-VN">🇻🇳 Vietnamese (Tiếng Việt)</option>
+                            <option value="th-TH">🇹🇭 Thai (ไทย)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="textarea-container">
+                    <textarea id="source-text" placeholder="Type your message or use the voice button below to speak..." maxlength="2000"></textarea>
+                    <div id="voice-waves" class="voice-waves hidden">
+                        <div class="wave wave1"></div>
+                        <div class="wave wave2"></div>
+                        <div class="wave wave3"></div>
+                        <div class="wave wave4"></div>
+                        <div class="wave wave5"></div>
+                    </div>
+                    <div id="listening-indicator" class="listening-indicator hidden">
+                        <span class="pulse-dot"></span> Listening...
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="char-count"><span id="current-char-count">0</span> / 2000</div>
+                    <div class="footer-actions">
+                        <button id="clear-text-btn" class="icon-btn tooltip" data-tooltip="Clear text" disabled>
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                        <button id="paste-text-btn" class="icon-btn tooltip" data-tooltip="Paste from Clipboard">
+                            <i class="fa-solid fa-paste"></i>
+                        </button>
+                        <button id="speak-source-btn" class="icon-btn tooltip" data-tooltip="Listen text" disabled>
+                            <i class="fa-solid fa-volume-up"></i>
+                        </button>
+                        <button id="mic-btn" class="mic-action-btn tooltip" data-tooltip="Speak to translate">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediary Controls (Swap & Quick Actions) -->
+            <div class="divider-controls">
+                <button id="swap-languages-btn" class="swap-btn tooltip" data-tooltip="Swap Languages" aria-label="Swap Languages">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </button>
+            </div>
+
+            <!-- Target Card -->
+            <div class="glass-card translator-card" id="target-card">
+                <div class="card-header">
+                    <span class="panel-label">Target Language</span>
+                    <div class="select-wrapper">
+                        <select id="target-language" aria-label="Target Language Selector">
+                            <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+                            <option value="en-US">🇬🇧 English</option>
+                            <option value="ta-IN">🇮🇳 Tamil (தமிழ்)</option>
+                            <option value="te-IN">🇮🇳 Telugu (తెలుగు)</option>
+                            <option value="kn-IN">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                            <option value="ml-IN">🇮🇳 Malayalam (മലയാളം)</option>
+                            <option value="bn-IN">🇮🇳 Bengali (বাংলা)</option>
+                            <option value="mr-IN">🇮🇳 Marathi (मराठी)</option>
+                            <option value="gu-IN">🇮🇳 Gujarati (ગુજરાતી)</option>
+                            <option value="pa-IN">🇮🇳 Punjabi (ਪੰਜਾਬੀ)</option>
+                            <option value="ur-IN">🇮🇳 Urdu (اردو)</option>
+                            <option value="es-ES">🇪🇸 Spanish (Español)</option>
+                            <option value="fr-FR">🇫🇷 French (Français)</option>
+                            <option value="de-DE">🇩🇪 German (Deutsch)</option>
+                            <option value="it-IT">🇮🇹 Italian (Italiano)</option>
+                            <option value="pt-PT">🇵🇹 Portuguese (Português)</option>
+                            <option value="ru-RU">🇷🇺 Russian (Русский)</option>
+                            <option value="zh-CN">🇨🇳 Chinese (Simplified)</option>
+                            <option value="ja-JP">🇯🇵 Japanese (日本語)</option>
+                            <option value="ko-KR">🇰🇷 Korean (한국어)</option>
+                            <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+                            <option value="tr-TR">🇹🇷 Turkish (Türkçe)</option>
+                            <option value="nl-NL">🇳🇱 Dutch (Nederlands)</option>
+                            <option value="vi-VN">🇻🇳 Vietnamese (Tiếng Việt)</option>
+                            <option value="th-TH">🇹🇭 Thai (ไทย)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="textarea-container">
+                    <div id="target-text-container" class="target-text-display">
+                        <div id="target-text-placeholder" class="placeholder-text">Translation will appear here...</div>
+                        <div id="target-text" class="translated-text hidden"></div>
+                        <div id="translation-shimmer" class="shimmer-loader hidden">
+                            <div class="shimmer-line"></div>
+                            <div class="shimmer-line shorter"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="translation-meta">
+                        <span id="translation-status">Ready</span>
+                    </div>
+                    <div class="footer-actions">
+                        <button id="favorite-btn" class="icon-btn tooltip" data-tooltip="Save translation" disabled>
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                        <button id="copy-text-btn" class="icon-btn tooltip" data-tooltip="Copy to Clipboard" disabled>
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        <button id="speak-target-btn" class="icon-btn tooltip" data-tooltip="Listen translation" disabled>
+                            <i class="fa-solid fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Dynamic Slide-out Drawer: History -->
+        <aside id="history-drawer" class="drawer">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-history"></i> Translation History</h3>
+                <button id="close-history-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="drawer-content">
+                <div class="drawer-actions">
+                    <button id="clear-history-btn" class="danger-btn"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+                </div>
+                <div id="history-list" class="list-container">
+                    <p class="empty-state-text">No translations in history yet.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Dynamic Slide-out Drawer: Starred / Favorites -->
+        <aside id="favorites-drawer" class="drawer">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-star text-gold"></i> Starred Phrases</h3>
+                <button id="close-favorites-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="drawer-content">
+                <div id="favorites-list" class="list-container">
+                    <p class="empty-state-text">No starred phrases yet. Click the star icon to save important translations.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal-overlay hidden">
+            <div class="modal-card glass-card">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-sliders"></i> Translation Settings</h3>
+                    <button id="close-settings-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="settings-voice-speed">Text-to-Speech Speed (Rate)</label>
+                        <div class="slider-container">
+                            <input type="range" id="settings-voice-speed" min="0.5" max="2" step="0.1" value="1">
+                            <span id="voice-speed-val">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="settings-voice-pitch">Voice Pitch</label>
+                        <div class="slider-container">
+                            <input type="range" id="settings-voice-pitch" min="0.5" max="1.5" step="0.1" value="1">
+                            <span id="voice-pitch-val">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="settings-voice-accent">Preferred Synthesis Voice Accent</label>
+                        <select id="settings-voice-accent">
+                            <option value="default">System Default Voice</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group check-group">
+                        <input type="checkbox" id="settings-autoplay-tts">
+                        <label for="settings-autoplay-tts">Auto-read translations aloud</label>
+                    </div>
+
+                    <div class="setting-group check-group">
+                        <input type="checkbox" id="settings-continuous-mic">
+                        <label for="settings-continuous-mic">Continuous dictation (don't stop speaking automatically)</label>
+                    </div>
+
+                    <div class="setting-group border-top">
+                        <label for="settings-api-endpoint">Translation API Provider</label>
+                        <select id="settings-api-endpoint">
+                            <option value="google">Google Translate Engine (Free/Default)</option>
+                            <option value="mymemory">MyMemory Translation Engine (Free)</option>
+                            <option value="custom">Custom API Endpoint (LibreTranslate/DeepL etc.)</option>
+                        </select>
+                    </div>
+
+                    <div id="custom-api-inputs" class="hidden">
+                        <div class="setting-group">
+                            <label for="custom-api-url">API Endpoint URL</label>
+                            <input type="url" id="custom-api-url" placeholder="https://api.libretranslate.com/translate">
+                        </div>
+                        <div class="setting-group">
+                            <label for="custom-api-key">API Key (Optional)</label>
+                            <input type="password" id="custom-api-key" placeholder="Enter key if required">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-settings-btn" class="primary-btn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with <i class="fa-solid fa-heart text-red"></i> for local-first seamless accessibility. Uses native Web Speech Engine.</p>
+        </footer>
+    </div>
+
+    <!-- JS Application Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# System files & log directories
+.system_generated/
+*.log
+
+# IDEs and OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
