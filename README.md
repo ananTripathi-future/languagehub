@@ -1,5 +1,7 @@
 # LanguageHub - Next-Gen Voice & Text AI Translator
 
+🚀 **Live Deployment**: [https://languagehub.vercel.app/](https://languagehub.vercel.app/)
+
 LanguageHub is a premium web-based translator that runs locally in your browser. It leverages standard web technologies alongside advanced browser speech recognition and synthesis models to offer seamless text and voice translation.
 
 ## Features
