@@ -965,4 +965,90 @@ document.addEventListener('DOMContentLoaded', () => {
             installAppBtn.classList.add('hidden');
         }
     });
+
+    // --- Feedback System ---
+    const feedbackToggleBtn = document.getElementById('feedback-toggle-btn');
+    const feedbackModal = document.getElementById('feedback-modal');
+    const closeFeedbackBtn = document.getElementById('close-feedback-btn');
+    const cancelFeedbackBtn = document.getElementById('cancel-feedback-btn');
+    const submitFeedbackBtn = document.getElementById('submit-feedback-btn');
+    const feedbackSuggestions = document.getElementById('feedback-suggestions');
+    const ratingEmojis = document.querySelectorAll('.rating-emoji');
+    
+    let selectedRating = 0;
+
+    // Toggle Modal Open
+    if (feedbackToggleBtn && feedbackModal) {
+        feedbackToggleBtn.addEventListener('click', () => {
+            feedbackModal.classList.remove('hidden');
+            resetFeedbackForm();
+        });
+    }
+
+    // Modal Close handlers
+    const closeFeedback = () => {
+        if (feedbackModal) {
+            feedbackModal.classList.add('hidden');
+        }
+    };
+
+    if (closeFeedbackBtn) closeFeedbackBtn.addEventListener('click', closeFeedback);
+    if (cancelFeedbackBtn) cancelFeedbackBtn.addEventListener('click', closeFeedback);
+
+    // Rating Emoji click selection handler
+    ratingEmojis.forEach(emoji => {
+        emoji.addEventListener('click', () => {
+            // Remove selection class from others
+            ratingEmojis.forEach(el => el.classList.remove('selected'));
+            // Select clicked emoji
+            emoji.classList.add('selected');
+            selectedRating = parseInt(emoji.getAttribute('data-rating'));
+        });
+    });
+
+    // Reset Form state
+    function resetFeedbackForm() {
+        selectedRating = 0;
+        if (feedbackSuggestions) feedbackSuggestions.value = '';
+        ratingEmojis.forEach(el => el.classList.remove('selected'));
+    }
+
+    // Submit handler
+    if (submitFeedbackBtn) {
+        submitFeedbackBtn.addEventListener('click', () => {
+            if (selectedRating === 0) {
+                showToast('Please select a rating before submitting', 'error');
+                return;
+            }
+
+            const suggestions = feedbackSuggestions ? feedbackSuggestions.value.trim() : '';
+
+            // 1. Save locally (localStorage) for offline records
+            const feedbackRecord = {
+                rating: selectedRating,
+                suggestions: suggestions,
+                timestamp: new Date().toISOString()
+            };
+            let allFeedback = JSON.parse(localStorage.getItem('languagehub_feedback')) || [];
+            allFeedback.push(feedbackRecord);
+            localStorage.setItem('languagehub_feedback', JSON.stringify(allFeedback));
+
+            // 2. Track Google Analytics Custom Event
+            if (typeof gtag === 'function') {
+                gtag('event', 'feedback_submitted', {
+                    event_category: 'engagement',
+                    event_label: `Rating: ${selectedRating}`,
+                    rating: selectedRating,
+                    suggestions: suggestions
+                });
+            }
+
+            // 3. Show Success notification
+            showToast('Thank you for your feedback! 💬', 'success');
+
+            // 4. Reset & Close
+            resetFeedbackForm();
+            closeFeedback();
+        });
+    }
 });
