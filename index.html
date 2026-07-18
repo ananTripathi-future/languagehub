@@ -56,8 +56,8 @@
                 <button id="history-toggle-btn" class="header-action-btn">
                     <i class="fa-solid fa-history"></i> <span>History</span>
                 </button>
-                <button id="feedback-toggle-btn" class="header-action-btn" title="Feedback">
-                    <i class="fa-solid fa-comment-dots text-pink"></i> <span>Feedback</span>
+                <button id="feedbackBtn" class="header-action-btn" title="Give Feedback">
+                    <i class="fa-solid fa-comment-dots text-pink"></i> <span>Give Feedback</span>
                 </button>
                 <button id="settings-toggle-btn" class="icon-btn" title="Settings">
                     <i class="fa-solid fa-sliders"></i>
@@ -299,36 +299,6 @@
                 </div>
                 <div class="modal-footer">
                     <button id="save-settings-btn" class="primary-btn">Save Settings</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feedback Modal -->
-        <div id="feedback-modal" class="modal-overlay hidden">
-            <div class="modal-card glass-card">
-                <div class="modal-header">
-                    <h3>💬 We'd Love Your Feedback</h3>
-                    <button id="close-feedback-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="modal-body">
-                    <div class="setting-group">
-                        <label>How was your experience?</label>
-                        <div id="rating-container" class="rating-container">
-                            <button class="rating-emoji" data-rating="1" title="Very Bad">😢</button>
-                            <button class="rating-emoji" data-rating="2" title="Bad">🙁</button>
-                            <button class="rating-emoji" data-rating="3" title="Neutral">😐</button>
-                            <button class="rating-emoji" data-rating="4" title="Good">🙂</button>
-                            <button class="rating-emoji" data-rating="5" title="Excellent">🤩</button>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <label for="feedback-suggestions">Suggestions (optional)</label>
-                        <textarea id="feedback-suggestions" placeholder="Tell us what we can improve..." style="height: 100px;"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer" style="gap: 8px;">
-                    <button id="cancel-feedback-btn" class="header-action-btn">Cancel</button>
-                    <button id="submit-feedback-btn" class="primary-btn">Submit</button>
                 </div>
             </div>
         </div>

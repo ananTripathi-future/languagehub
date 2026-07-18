@@ -1006,33 +1006,4 @@ footer p {
     }
 }
 
-/* --- Feedback Rating Styles --- */
-.rating-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    max-width: 320px;
-    margin: 0 auto;
-}
 
-.rating-emoji {
-    background: transparent;
-    border: 2px solid transparent;
-    font-size: 28px;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 50%;
-    transition: var(--transition-smooth);
-}
-
-.rating-emoji:hover {
-    transform: scale(1.2);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.rating-emoji.selected {
-    border-color: var(--accent-pink);
-    background: rgba(236, 72, 153, 0.1);
-    transform: scale(1.15);
-}
