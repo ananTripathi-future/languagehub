@@ -994,4 +994,86 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     }
+
+    // --- Mobile Bottom Navigation Controller ---
+    const navTranslateBtn = document.getElementById('nav-translate-btn');
+    const navStarredBtn = document.getElementById('nav-starred-btn');
+    const navHistoryBtn = document.getElementById('nav-history-btn');
+    const navFeedbackBtn = document.getElementById('nav-feedback-btn');
+    const navSettingsBtn = document.getElementById('nav-settings-btn');
+    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+
+    function setActiveNavTab(activeBtn) {
+        bottomNavItems.forEach(btn => btn.classList.remove('active'));
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // Translate tab
+    if (navTranslateBtn) {
+        navTranslateBtn.addEventListener('click', () => {
+            setActiveNavTab(navTranslateBtn);
+            // Close all drawers
+            historyDrawer.classList.remove('open');
+            favoritesDrawer.classList.remove('open');
+            // Scroll to textarea and focus
+            sourceText.scrollIntoView({ behavior: 'smooth' });
+            sourceText.focus();
+        });
+    }
+
+    // Starred tab
+    if (navStarredBtn) {
+        navStarredBtn.addEventListener('click', () => {
+            const isCurrentlyOpen = favoritesDrawer.classList.contains('open');
+            if (isCurrentlyOpen) {
+                favoritesDrawer.classList.remove('open');
+                setActiveNavTab(navTranslateBtn);
+            } else {
+                favoritesDrawer.classList.add('open');
+                historyDrawer.classList.remove('open');
+                setActiveNavTab(navStarredBtn);
+            }
+        });
+    }
+
+    // History tab
+    if (navHistoryBtn) {
+        navHistoryBtn.addEventListener('click', () => {
+            const isCurrentlyOpen = historyDrawer.classList.contains('open');
+            if (isCurrentlyOpen) {
+                historyDrawer.classList.remove('open');
+                setActiveNavTab(navTranslateBtn);
+            } else {
+                historyDrawer.classList.add('open');
+                favoritesDrawer.classList.remove('open');
+                setActiveNavTab(navHistoryBtn);
+            }
+        });
+    }
+
+    // Feedback redirect tab
+    if (navFeedbackBtn) {
+        navFeedbackBtn.addEventListener('click', () => {
+            if (feedbackBtn) feedbackBtn.click();
+        });
+    }
+
+    // Settings tab
+    if (navSettingsBtn) {
+        navSettingsBtn.addEventListener('click', () => {
+            if (settingsToggleBtn) settingsToggleBtn.click();
+        });
+    }
+
+    // Reset navigation tab states if drawers are closed manually
+    if (closeHistoryBtn) {
+        closeHistoryBtn.addEventListener('click', () => {
+            setActiveNavTab(navTranslateBtn);
+        });
+    }
+    if (closeFavoritesBtn) {
+        closeFavoritesBtn.addEventListener('click', () => {
+            setActiveNavTab(navTranslateBtn);
+        });
+    }
 });

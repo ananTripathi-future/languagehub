@@ -1051,6 +1051,79 @@ footer p {
     .bg-gradient-glow {
         animation: none;
     }
+
+    /* Hide header buttons on mobile view since they are inside the bottom nav */
+    #favorites-toggle-btn,
+    #history-toggle-btn,
+    #feedbackBtn,
+    #settings-toggle-btn {
+        display: none !important;
+    }
+
+    header {
+        flex-direction: row !important; /* Keep logo and theme/install inline on mobile */
+        align-items: center !important;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .header-controls {
+        width: auto !important;
+    }
+
+    .app-container {
+        padding-bottom: 86px !important; /* Space for the bottom nav bar */
+    }
+
+    /* Show Bottom Nav Bar */
+    .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 68px;
+        background: rgba(9, 13, 26, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-color);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 150;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .bottom-nav-item {
+        background: transparent;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        color: var(--text-secondary);
+        font-family: var(--font-inter);
+        font-size: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        flex: 1;
+        height: 100%;
+        justify-content: center;
+        transition: var(--transition-smooth);
+    }
+
+    .bottom-nav-item i {
+        font-size: 20px;
+    }
+
+    .bottom-nav-item:hover, .bottom-nav-item.active {
+        color: var(--accent-cyan);
+    }
+}
+
+/* Hide Bottom Nav on Desktop/Tablet by default */
+.bottom-nav {
+    display: none;
 }
 
 
