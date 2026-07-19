@@ -1,4 +1,4 @@
-const CACHE_NAME = 'languagehub-v8';
+const CACHE_NAME = 'languagehub-v9';
 const ASSETS = [
   './',
   './index.html',

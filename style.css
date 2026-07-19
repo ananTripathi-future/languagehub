@@ -959,72 +959,47 @@ footer p {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* --- Responsive Adjustments (Desktop, Tablet, Mobile) --- */
+/* --- Responsive Adjustments (Desktop vs Mobile/Tablet) --- */
 
-/* 1. Tablet Layout (768px to 1024px) */
-@media (max-width: 1024px) {
+/* Unified Mobile & Tablet Breakpoint (Under 992px) */
+@media (max-width: 992px) {
     .app-container {
-        padding: 16px;
+        padding: 12px;
+        padding-bottom: 86px !important; /* Offset spacing for the bottom nav bar */
         max-width: 100%;
     }
 
+    header {
+        flex-direction: row !important; /* Keep logo and theme/install inline */
+        align-items: center !important;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .header-controls {
+        width: auto !important;
+    }
+
+    /* Hide redundant header control buttons (moved to bottom navigation) */
+    #favorites-toggle-btn,
+    #history-toggle-btn,
+    #feedbackBtn,
+    #settings-toggle-btn {
+        display: none !important;
+    }
+
+    /* Stack cards vertically */
     .translator-grid {
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: 1fr;
         gap: 12px;
     }
 
     .translator-card {
-        height: 380px;
+        height: 300px;
     }
 
     textarea, .target-text-display {
         font-size: 16px;
-    }
-
-    .header-action-btn span {
-        display: none; /* Hide labels, keep icons to prevent inline overflow */
-    }
-
-    .header-action-btn {
-        padding: 0;
-        width: 40px;
-        height: 40px;
-        justify-content: center;
-        border-radius: 10px;
-    }
-
-    .drawer {
-        width: 320px;
-    }
-}
-
-/* 2. Mobile Layout (Below 768px) */
-@media (max-width: 767px) {
-    .app-container {
-        padding: 12px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .header-controls {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .translator-grid {
-        grid-template-columns: 1fr; /* Stack source & target cards vertically */
-        gap: 10px;
-    }
-
-    .translator-card {
-        height: 290px;
     }
 
     .divider-controls {
@@ -1035,7 +1010,7 @@ footer p {
     .swap-btn {
         width: 44px;
         height: 44px;
-        transform: rotate(90deg); /* Swap arrow rotates vertically for stacked layout */
+        transform: rotate(90deg); /* Arrow points down vertically */
     }
 
     .swap-btn:hover {
@@ -1043,39 +1018,16 @@ footer p {
     }
 
     .drawer {
-        width: 100%; /* Drawer spans full mobile width */
+        width: 100%; /* Drawer spans full screen width on mobile/tablet */
         right: -100%;
     }
 
-    /* Disable rotation glow on mobile devices for improved hardware rendering */
+    /* Disable backdrop animation on mobile devices for improved CPU performance */
     .bg-gradient-glow {
         animation: none;
     }
 
-    /* Hide header buttons on mobile view since they are inside the bottom nav */
-    #favorites-toggle-btn,
-    #history-toggle-btn,
-    #feedbackBtn,
-    #settings-toggle-btn {
-        display: none !important;
-    }
-
-    header {
-        flex-direction: row !important; /* Keep logo and theme/install inline on mobile */
-        align-items: center !important;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .header-controls {
-        width: auto !important;
-    }
-
-    .app-container {
-        padding-bottom: 86px !important; /* Space for the bottom nav bar */
-    }
-
-    /* Show Bottom Nav Bar */
+    /* Display Bottom Nav Bar */
     .bottom-nav {
         display: flex;
         position: fixed;
@@ -1121,7 +1073,7 @@ footer p {
     }
 }
 
-/* Hide Bottom Nav on Desktop/Tablet by default */
+/* Hide Bottom Nav on Desktop by default */
 .bottom-nav {
     display: none;
 }
