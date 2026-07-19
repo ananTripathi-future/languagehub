@@ -1025,6 +1025,7 @@ footer p {
     /* Disable backdrop animation on mobile devices for improved CPU performance */
     .bg-gradient-glow {
         animation: none;
+        background: radial-gradient(circle at 50% 20%, rgba(0, 242, 254, 0.07) 0%, transparent 50%) !important; /* Scale down and fade backdrop glow on mobile */
     }
 
     /* Display Bottom Nav Bar */
