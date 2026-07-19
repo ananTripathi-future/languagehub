@@ -961,6 +961,11 @@ footer p {
 
 /* --- Responsive Adjustments (Desktop vs Mobile/Tablet) --- */
 
+/* Hide Bottom Nav on Desktop by default */
+.bottom-nav {
+    display: none;
+}
+
 /* Unified Mobile & Tablet Breakpoint (Under 992px) */
 @media (max-width: 992px) {
     /* Remove vertical body centering to prevent huge top gaps */
@@ -1123,11 +1128,6 @@ footer p {
     .bottom-nav-item:hover, .bottom-nav-item.active {
         color: var(--accent-cyan);
     }
-}
-
-/* Hide Bottom Nav on Desktop by default */
-.bottom-nav {
-    display: none;
 }
 
 
