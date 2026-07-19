@@ -919,7 +919,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator) {
         const registerSW = () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('[Service Worker] Registered successfully', reg.scope))
+                .then(reg => {
+                    console.log('[Service Worker] Registered successfully', reg.scope);
+                    
+                    // Listen for cache updates
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        if (newWorker) {
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('[Service Worker] New PWA update loaded. Activating...');
+                                    showToast('Updating LanguageHub to the latest version...', 'success');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1200);
+                                }
+                            });
+                        }
+                    });
+                })
                 .catch(err => console.error('[Service Worker] Registration failed', err));
         };
         if (document.readyState === 'complete') {
