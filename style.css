@@ -963,10 +963,17 @@ footer p {
 
 /* Unified Mobile & Tablet Breakpoint (Under 992px) */
 @media (max-width: 992px) {
+    /* Remove vertical body centering to prevent huge top gaps */
+    body {
+        align-items: flex-start !important;
+        padding-top: 8px !important;
+    }
+
     .app-container {
-        padding: 12px;
+        padding: 12px 8px !important;
         padding-bottom: 86px !important; /* Offset spacing for the bottom nav bar */
         max-width: 100%;
+        min-height: auto !important; /* Prevent vertical stretching gaps */
     }
 
     header {
@@ -974,6 +981,8 @@ footer p {
         align-items: center !important;
         width: 100%;
         justify-content: space-between;
+        margin-bottom: 16px !important;
+        padding-bottom: 12px !important;
     }
 
     .header-controls {
@@ -988,33 +997,75 @@ footer p {
         display: none !important;
     }
 
-    /* Stack cards vertically */
+    /* Stack cards vertically at 95% container width */
     .translator-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 36px !important; /* Creates vertical space for the floating swap button */
+        position: relative !important;
+        width: 95% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
     }
 
     .translator-card {
-        height: 300px;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 290px !important;
     }
 
+    /* Taller text boxes for longer sentences */
     textarea, .target-text-display {
-        font-size: 16px;
+        font-size: 16px !important;
+        min-height: 180px !important;
+        height: auto !important;
     }
 
+    /* Larger dropdown selectors */
+    select {
+        padding: 12px 40px 12px 16px !important;
+        font-size: 16px !important;
+        border-radius: 10px !important;
+    }
+
+    /* Floating Swap Button Overlay */
     .divider-controls {
-        padding: 6px 0;
-        height: auto;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 25 !important;
+        padding: 0 !important;
     }
 
     .swap-btn {
-        width: 44px;
-        height: 44px;
-        transform: rotate(90deg); /* Arrow points down vertically */
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50% !important;
+        background: var(--bg-card-hover) !important;
+        border: 1px solid var(--accent-cyan) !important;
+        box-shadow: 0 4px 16px rgba(0, 242, 254, 0.3) !important;
+        transform: rotate(90deg) !important; /* Rotates horizontally pointing arrow down ↓ */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
     .swap-btn:hover {
-        transform: rotate(270deg);
+        transform: rotate(270deg) !important;
+    }
+
+    /* Bigger Material Design touch targets (48x48px) */
+    .card-footer .icon-btn, 
+    .mic-action-btn {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 20px !important;
+        border-radius: 12px !important;
+    }
+
+    .mic-action-btn {
+        border-radius: 50% !important; /* Circle mic */
     }
 
     .drawer {
