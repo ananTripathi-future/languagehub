@@ -1,7 +1,8 @@
 {
   "name": "LanguageHub Voice & Text Translator",
   "short_name": "LanguageHub",
-  "start_url": "./index.html",
+  "start_url": ".",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#090D1A",
   "theme_color": "#090D1A",
