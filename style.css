@@ -982,6 +982,17 @@ footer p {
     .swap-btn:hover {
         transform: rotate(270deg);
     }
+    
+    .header-action-btn span {
+        display: none;
+    }
+    
+    .header-action-btn {
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 600px) {
