@@ -960,61 +960,99 @@ footer p {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 900px) {
+/* --- Responsive Adjustments (Desktop, Tablet, Mobile) --- */
+
+/* 1. Tablet Layout (768px to 1024px) */
+@media (max-width: 1024px) {
+    .app-container {
+        padding: 16px;
+        max-width: 100%;
+    }
+
     .translator-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr auto 1fr;
         gap: 12px;
     }
-    
+
     .translator-card {
-        height: 320px;
+        height: 380px;
     }
-    
-    .divider-controls {
-        padding: 8px 0;
+
+    textarea, .target-text-display {
+        font-size: 16px;
     }
-    
-    .swap-btn {
-        transform: rotate(90deg);
-    }
-    
-    .swap-btn:hover {
-        transform: rotate(270deg);
-    }
-    
+
     .header-action-btn span {
-        display: none;
+        display: none; /* Hide labels, keep icons to prevent inline overflow */
     }
-    
+
     .header-action-btn {
         padding: 0;
         width: 40px;
         height: 40px;
         justify-content: center;
+        border-radius: 10px;
+    }
+
+    .drawer {
+        width: 320px;
     }
 }
 
-@media (max-width: 600px) {
+/* 2. Mobile Layout (Below 768px) */
+@media (max-width: 767px) {
     .app-container {
         padding: 12px;
     }
-    
+
     header {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
     }
-    
+
     .header-controls {
         width: 100%;
+        display: flex;
         justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
     }
-    
+
+    .translator-grid {
+        grid-template-columns: 1fr; /* Stack source & target cards vertically */
+        gap: 10px;
+    }
+
+    .translator-card {
+        height: 290px;
+    }
+
+    .divider-controls {
+        padding: 6px 0;
+        height: auto;
+    }
+
+    .swap-btn {
+        width: 44px;
+        height: 44px;
+        transform: rotate(90deg); /* Swap arrow rotates vertically for stacked layout */
+    }
+
+    .swap-btn:hover {
+        transform: rotate(270deg);
+    }
+
     .drawer {
-        width: 100%;
+        width: 100%; /* Drawer spans full mobile width */
         right: -100%;
     }
+
+    /* Disable rotation glow on mobile devices for improved hardware rendering */
+    .bg-gradient-glow {
+        animation: none;
+    }
 }
+
 
 
